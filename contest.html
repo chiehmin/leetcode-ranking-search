@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <!-- Required Stylesheets -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+      />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+      />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>Leetcode Ranking</title>
+  </head>
+  <body>
+    <div id="app">
+      <b-input-group class="mt-2" style="width: 30%">
+        <b-form-input
+          id="filterInput"
+          type="search"
+          placeholder="Type to Search"
+        ></b-form-input>
+        <b-input-group-append>
+          <b-button type="submit" variant="primary" v-on:click="triggerSearch">Submit</b-button>
+        </b-input-group-append>
+        <div :class="{ 'd-none' : loaded }">
+          <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </b-input-group>
+
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="total"
+        :per-page="perPage"
+        aria-controls="rank-table"
+        ></b-pagination>
+
+        <b-table hover
+                 id="rank-table"
+                 :items="rank"
+                 :per-page="perPage"
+                 :current-page="currentPage"
+                 :filter="filter"
+                 :filter-included-fields="filteredOn"
+                 @filtered="onFiltered"
+                 ></b-table>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          perPage: 100,
+          currentPage: 1,
+          rank: [],
+          filter: null,
+          filteredOn: ["username"],
+          loaded: false
+        },
+        computed: {
+          total: function() {
+            return this.rank.length;
+          }
+        },
+        methods: {
+          loadData: function() {
+            contest = new URLSearchParams(new URL(document.URL).search).get("contest");
+            contest = contest ? contest : 'latest';
+            console.log(contest)
+            axios.get('data/latest.json')
+              .then(resp => (this.rank = resp.data));
+            this.loaded = true;
+          },
+          triggerSearch: function() {
+            this.loaded = false;
+            this.filter = document.getElementById("filterInput").value;
+          },
+          onFiltered: function() {
+            this.loaded = true;
+          }
+        },
+        mounted: function() {
+          this.loadData();
+        }
+      })
+    </script>
+  </body>
+</html>
