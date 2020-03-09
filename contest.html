@@ -24,6 +24,7 @@
   </head>
   <body>
     <div id="app">
+      <h1>{{ title }}</h1>
       <b-input-group class="mt-2" style="width: 30%">
         <b-form-input
           id="filterInput"
@@ -62,6 +63,7 @@
       var app = new Vue({
         el: '#app',
         data: {
+          title: "",
           perPage: 100,
           currentPage: 1,
           fields: ['rank', 'username', 'country_name', 'score', 'finish_time', 'data_region'],
@@ -82,6 +84,7 @@
             contest = contest ? contest : 'latest';
             axios.get('data/' + contest + '.json')
               .then(resp => (this.rank = resp.data));
+            this.title = contest;
             this.loaded = true;
           },
           triggerSearch: function() {
