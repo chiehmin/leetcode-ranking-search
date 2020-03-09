@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import datetime
 import json
 import requests
 import sys
@@ -18,6 +19,16 @@ def getRanking(contest):
         total_rank.extend(resp['total_rank'])
         print('Retreived ranking from page {}. {} retreived.'.format(page, len(total_rank)))
         page = page + 1
+
+    # discard and transform fields
+    for rank in total_rank:
+        rank.pop('contest_id', None)
+        rank.pop('user_slug', None)
+        rank.pop('country_code', None)
+        rank.pop('global_ranking', None)
+        finish_timestamp = rank.pop('finish_time', None)
+        if finish_timestamp:
+            rank["finish_time"] = datetime.datetime.fromtimestamp(int(finish_timestamp)).isoformat()
 
     persistent_file = 'data/{}.json'.format(contest)
     print('Save retreived ranking to {}'.format(persistent_file))

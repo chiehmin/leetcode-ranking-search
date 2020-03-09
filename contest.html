@@ -49,6 +49,7 @@
 
         <b-table hover
                  id="rank-table"
+                 :fields="fields"
                  :items="rank"
                  :per-page="perPage"
                  :current-page="currentPage"
@@ -63,22 +64,23 @@
         data: {
           perPage: 100,
           currentPage: 1,
+          fields: ['rank', 'username', 'country_name', 'score', 'finish_time', 'data_region'],
           rank: [],
           filter: null,
           filteredOn: ["username"],
+          totalRows: null,
           loaded: false
         },
         computed: {
           total: function() {
-            return this.rank.length;
+            return this.totalRows || this.rank.length;
           }
         },
         methods: {
           loadData: function() {
             contest = new URLSearchParams(new URL(document.URL).search).get("contest");
             contest = contest ? contest : 'latest';
-            console.log(contest)
-            axios.get('data/latest.json')
+            axios.get('data/' + contest + '.json')
               .then(resp => (this.rank = resp.data));
             this.loaded = true;
           },
@@ -86,14 +88,16 @@
             this.loaded = false;
             this.filter = document.getElementById("filterInput").value;
           },
-          onFiltered: function() {
+          onFiltered: function(filteredItems) {
             this.loaded = true;
+            this.currentPage = 1;
+            this.totalRows = filteredItems.length;
           }
         },
         mounted: function() {
           this.loadData();
         }
-      })
+      });
     </script>
   </body>
 </html>
