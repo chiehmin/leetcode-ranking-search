@@ -104,7 +104,7 @@
             this.title = contest;
           },
           filterUser: function(row, filter) {
-            return (row.username.startsWith(filter)) ? true : false;
+            return (row.username.toLowerCase().startsWith(filter.toLowerCase())) ? true : false;
           },
           onFiltered: function(filteredItems) {
             this.currentPage = 1;
