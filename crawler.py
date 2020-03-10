@@ -39,6 +39,12 @@ def getRanking(contest):
 def unSlug(slug):
     return ' '.join([ w.capitalize() for w in slug.split('-') ])
 
+def isNew(contests, contest):
+    for c in contests:
+        if contest == c['title']:
+            return False
+    return True
+
 def main():
     parser = argparse.ArgumentParser(description='Leetcode ranking crawler')
     parser.add_argument('contest', help='contest slug (ex: weekly-contest-178)')
@@ -51,7 +57,11 @@ def main():
             contests = json.load(fp)
     else:
         contests = []
-    contests.insert(0, {'title': unSlug(args.contest), 'href': 'contest.html?contest={}'.format(args.contest)})
+
+    if isNew(contests, args.contest):
+        contests.insert(0, {'title': unSlug(args.contest), 'href': 'contest.html?contest={}'.format(args.contest)})
+        contests.sort(key=lambda c : c['title'], reverse = True)
+
     with open('data/contests.json', 'w+') as fp:
         json.dump(contests, fp)
 
