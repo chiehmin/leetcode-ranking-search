@@ -20,17 +20,23 @@
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <title>Leetcode Ranking</title>
   </head>
   <body>
     <div id="app" class="p-5">
       <h1>{{ unSlugTitle }}</h1>
 
+      <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
+      <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
+
       <b-form-input
         v-model="filter"
         debounce="500"
         type="search"
         placeholder="Type to Search"
+        class="mt-2"
         ></b-form-input>
 
       <b-pagination
