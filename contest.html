@@ -52,7 +52,14 @@
         :filter-function="filterUser"
         :filter-included-fields="filteredOn"
         @filtered="onFiltered"
-        ></b-table>
+        >
+        <template v-slot:table-busy>
+          <div class="text-center text-danger my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
+      </b-table>
 
     </div>
     <script>
@@ -85,16 +92,21 @@
           loadData: function() {
             contest = new URLSearchParams(new URL(document.URL).search).get("contest");
             contest = contest ? contest : 'latest';
+
+            // loading contest data
+            let self = this
             axios.get('data/' + contest + '.json')
-              .then(resp => (this.rank = resp.data));
+              .then(function(resp){
+                self.isBusy = false;
+                self.rank = resp.data;
+              });
+
             this.title = contest;
-            this.isBusy = false;
           },
           filterUser: function(row, filter) {
             return (row.username.startsWith(filter)) ? true : false;
           },
           onFiltered: function(filteredItems) {
-            this.isBusy = false;
             this.currentPage = 1;
             this.totalRows = filteredItems.length;
           }
