@@ -23,12 +23,12 @@
     <title>Leetcode Ranking</title>
   </head>
   <body>
-    <div id="app">
-      <ul class="menu">
-        <li v-for="contest in contests">
+    <div id="app" class="p-4">
+      <b-list-group>
+        <b-list-group-item v-for="contest in contests">
           <a v-bind:href="contest.href">{{ contest.title }}</a>
-        </li>
-      </ul>
+        </b-list-group-item>
+      </b-list-group>
     </div>
     <script>
       var app = new Vue({
