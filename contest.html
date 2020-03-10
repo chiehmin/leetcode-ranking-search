@@ -25,21 +25,12 @@
   <body>
     <div id="app">
       <h1>{{ title }}</h1>
-      <b-input-group class="mt-2" style="width: 30%">
-        <b-form-input
-          id="filterInput"
-          type="search"
-          placeholder="Type to Search"
-        ></b-form-input>
-        <b-input-group-append>
-          <b-button type="submit" variant="primary" v-on:click="triggerSearch">Submit</b-button>
-        </b-input-group-append>
-        <div :class="{ 'd-none' : loaded }">
-          <div class="spinner-grow" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-      </b-input-group>
+      <b-form-input
+        v-model="filter"
+        debounce="500"
+        type="search"
+        placeholder="Type to Search"
+      ></b-form-input>
 
       <b-pagination
         v-model="currentPage"
@@ -54,7 +45,9 @@
                  :items="rank"
                  :per-page="perPage"
                  :current-page="currentPage"
+                 :busy="isBusy"
                  :filter="filter"
+                 :filter-function="filterUser"
                  :filter-included-fields="filteredOn"
                  @filtered="onFiltered"
                  ></b-table>
@@ -64,14 +57,14 @@
         el: '#app',
         data: {
           title: "",
-          perPage: 100,
+          perPage: 25,
           currentPage: 1,
           fields: ['rank', 'username', 'country_name', 'score', 'finish_time', 'data_region'],
           rank: [],
           filter: null,
           filteredOn: ["username"],
           totalRows: null,
-          loaded: false
+          isBusy: true
         },
         computed: {
           total: function() {
@@ -85,14 +78,13 @@
             axios.get('data/' + contest + '.json')
               .then(resp => (this.rank = resp.data));
             this.title = contest;
-            this.loaded = true;
+            this.isBusy = false;
           },
-          triggerSearch: function() {
-            this.loaded = false;
-            this.filter = document.getElementById("filterInput").value;
+          filterUser: function(row, filter) {
+            return (row.username.startsWith(filter)) ? true : false;
           },
           onFiltered: function(filteredItems) {
-            this.loaded = true;
+            this.isBusy = false;
             this.currentPage = 1;
             this.totalRows = filteredItems.length;
           }
