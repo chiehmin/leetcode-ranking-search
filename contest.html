@@ -23,34 +23,37 @@
     <title>Leetcode Ranking</title>
   </head>
   <body>
-    <div id="app">
-      <h1>{{ title }}</h1>
+    <div id="app" class="p-5">
+      <h1>{{ unSlugTitle }}</h1>
+
       <b-form-input
         v-model="filter"
         debounce="500"
         type="search"
         placeholder="Type to Search"
-      ></b-form-input>
+        ></b-form-input>
 
       <b-pagination
         v-model="currentPage"
         :total-rows="total"
         :per-page="perPage"
+        class="mt-2"
         aria-controls="rank-table"
         ></b-pagination>
 
-        <b-table hover
-                 id="rank-table"
-                 :fields="fields"
-                 :items="rank"
-                 :per-page="perPage"
-                 :current-page="currentPage"
-                 :busy="isBusy"
-                 :filter="filter"
-                 :filter-function="filterUser"
-                 :filter-included-fields="filteredOn"
-                 @filtered="onFiltered"
-                 ></b-table>
+      <b-table hover
+        id="rank-table"
+        :fields="fields"
+        :items="rank"
+        :per-page="perPage"
+        :current-page="currentPage"
+        :busy="isBusy"
+        :filter="filter"
+        :filter-function="filterUser"
+        :filter-included-fields="filteredOn"
+        @filtered="onFiltered"
+        ></b-table>
+
     </div>
     <script>
       var app = new Vue({
@@ -69,6 +72,13 @@
         computed: {
           total: function() {
             return this.totalRows || this.rank.length;
+          },
+          unSlugTitle: function() {
+            words = this.title.split("-");
+            for(var i = 0 ; i < words.length ; i++){
+              words[i] = words[i].charAt(0).toUpperCase() + words[i].substr(1);
+            }
+            return words.join(" ");
           }
         },
         methods: {
