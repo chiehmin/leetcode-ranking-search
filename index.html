@@ -34,16 +34,16 @@
       var app = new Vue({
         el: '#app',
         data: {
-          contests: [{
-            title: "Weekly Contest 179",
-            href: "contest.html?contest=weekly-contest-179"
-          }, {
-            title: "Biweekly Contest 21",
-            href: "contest.html?contest=biweekly-contest-21"
-          }, {
-            title: "Weekly Contest 178",
-            href: "contest.html?contest=weekly-contest-178"
-          }]
+          contests: []
+        },
+        methods: {
+          loadContests: function() {
+            axios.get('data/contests.json')
+              .then(resp => (this.contests = resp.data));
+          }
+        },
+        mounted: function() {
+          this.loadContests();
         }
       });
     </script>

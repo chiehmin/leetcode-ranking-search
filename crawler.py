@@ -3,6 +3,7 @@
 import argparse
 import datetime
 import json
+import os
 import requests
 import sys
 
@@ -35,11 +36,24 @@ def getRanking(contest):
     with open(persistent_file, 'w') as fp:
         json.dump(total_rank, fp)
 
+def unSlug(slug):
+    return ' '.join([ w.capitalize() for w in slug.split('-') ])
+
 def main():
     parser = argparse.ArgumentParser(description='Leetcode ranking crawler')
     parser.add_argument('contest', help='contest slug (ex: weekly-contest-178)')
     args = parser.parse_args()
     getRanking(args.contest)
+
+    # update contests file
+    if os.path.exists('data/contests.json'):
+        with open('data/contests.json', 'r') as fp:
+            contests = json.load(fp)
+    else:
+        contests = []
+    contests.insert(0, {'title': unSlug(args.contest), 'href': 'contest.html?contest={}'.format(args.contest)})
+    with open('data/contests.json', 'w+') as fp:
+        json.dump(contests, fp)
 
 if __name__ == "__main__":
     main()
