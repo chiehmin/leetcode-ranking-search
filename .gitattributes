@@ -1,0 +1,9 @@
+data/weekly-contest-178.json filter=lfs diff=lfs merge=lfs -text
+data/weekly-contest-179.json filter=lfs diff=lfs merge=lfs -text
+data/weekly-contest-176.json filter=lfs diff=lfs merge=lfs -text
+data/weekly-contest-177.json filter=lfs diff=lfs merge=lfs -text
+data/biweekly-contest-19.json filter=lfs diff=lfs merge=lfs -text
+data/biweekly-contest-20.json filter=lfs diff=lfs merge=lfs -text
+data/biweekly-contest-21.json filter=lfs diff=lfs merge=lfs -text
+data/contests.json filter=lfs diff=lfs merge=lfs -text
+data/latest.json filter=lfs diff=lfs merge=lfs -text
