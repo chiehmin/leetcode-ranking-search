@@ -20,30 +20,47 @@
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="date.format.js"></script>
+
     <title>Leetcode Ranking</title>
   </head>
   <body>
-    <div id="app" class="p-4">
-      <b-list-group>
-        <b-list-group-item v-for="contest in contests">
-          <a v-bind:href="contest.href">{{ contest.title }}</a>
-        </b-list-group-item>
-      </b-list-group>
+    <div id="app" class="px-5 py-3">
+      <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
+        <b-navbar-brand href="#">Leetcode contest ranking searcher</b-navbar-brand>
+      </b-navbar>
+      <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
+      <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
+
+      <b-table hover :items="contestProviders" :fields="fields">
+        <template v-slot:head(title)="data">
+          Contest
+        </template>
+        <template v-slot:cell(title)="data">
+          <b-link :href="data.item.href">{{ data.item.title }}</b-link>
+        </template>
+        <template v-slot:cell(startTime)="data">
+          {{ timestampToDate(data.item.startTime) }}
+        </template>
+      </b-table>
     </div>
     <script>
       var app = new Vue({
         el: '#app',
         data: {
-          contests: []
+					fields: ["title", "startTime"]
         },
         methods: {
-          loadContests: function() {
-            axios.get('data/contests.json')
-              .then(resp => (this.contests = resp.data));
+          contestProviders: function() {
+            return axios.get('data/contests.json')
+              .then(resp => {
+                return resp.data;
+              });
+          },
+          timestampToDate: function(timestamp) {
+            return new Date(timestamp * 1000).format('Y-m-d H:i:s');
           }
-        },
-        mounted: function() {
-          this.loadContests();
         }
       });
     </script>
