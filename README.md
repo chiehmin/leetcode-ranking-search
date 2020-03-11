@@ -1,6 +1,12 @@
 # Leetcode Contest Ranking Searcher
 
-Demo site: https://fatminmin.com/leetcode-ranking-search/
+[![auto crawling contest data](https://github.com/chiehmin/leetcode-ranking-search/workflows/auto%20crawling%20contest%20data/badge.svg)](https://github.com/chiehmin/leetcode-ranking-search/actions)
+
+Website: https://fatminmin.com/leetcode-ranking-search/
+
+Leetcode contest ranking page lacks a search bar to search for the ranking of a specific user. So I implemented one.
+
+The contest data is updated every week by setting up a scheduled pipeline using Github Actions.
 
 ## Crawling contest results
 
