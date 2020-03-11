@@ -25,27 +25,37 @@
     <title>Leetcode Ranking</title>
   </head>
   <body>
-    <div id="app" class="p-5">
-      <h1>{{ unSlugTitle }}</h1>
+    <div id="app" class="px-5 py-3">
+      <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
+        <b-navbar-brand href="#">{{ unSlugTitle }}</b-navbar-brand>
+        <b-navbar-nav>
+          <b-nav-item href="index.html">All Contests</b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
 
       <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
       <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
 
-      <b-form-input
-        v-model="filter"
-        debounce="500"
-        type="search"
-        placeholder="Type to Search"
-        class="mt-2"
-        ></b-form-input>
-
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="total"
-        :per-page="perPage"
-        class="mt-2"
-        aria-controls="rank-table"
-        ></b-pagination>
+      <b-container fluid class="p-0">
+        <b-row align-h="between">
+          <b-col sm="5">
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="total"
+              :per-page="perPage"
+              aria-controls="rank-table"
+              ></b-pagination>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input
+              v-model="filter"
+              debounce="500"
+              type="search"
+              placeholder="Type to Search"
+              ></b-form-input>
+          </b-col>
+        </b-row>
+      </b-container>
 
       <b-table hover
         id="rank-table"
