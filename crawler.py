@@ -36,34 +36,47 @@ def getRanking(contest):
     with open(persistent_file, 'w') as fp:
         json.dump(total_rank, fp)
 
-def unSlug(slug):
-    return ' '.join([ w.capitalize() for w in slug.split('-') ])
+def getContestInfo(contest):
+    def unSlug(slug):
+        return ' '.join([ w.capitalize() for w in slug.split('-') ])
 
-def isNew(contests, contest):
-    for c in contests:
-        if contest == c['title']:
-            return False
-    return True
+    def isNew(contests, newContest):
+        for c in contests:
+            if newContest['title'] == c['title']:
+                return False
+        return True
 
-def main():
-    parser = argparse.ArgumentParser(description='Leetcode ranking crawler')
-    parser.add_argument('contest', help='contest slug (ex: weekly-contest-178)')
-    args = parser.parse_args()
-    getRanking(args.contest)
+    CONTEST_INFO_API_URL_FMT = 'https://leetcode.com/contest/api/info/{}/'
+    resp = requests.get(CONTEST_INFO_API_URL_FMT.format(contest)).json()
+    startTimestamp = int(resp['contest']['start_time'])
 
-    # update contests file
+    newContest = {
+        "title": unSlug(contest),
+        "href": 'contest.html?contest={}'.format(contest),
+        "startTime": startTimestamp
+    }
+
     if os.path.exists('data/contests.json'):
         with open('data/contests.json', 'r') as fp:
             contests = json.load(fp)
     else:
         contests = []
 
-    if isNew(contests, args.contest):
-        contests.insert(0, {'title': unSlug(args.contest), 'href': 'contest.html?contest={}'.format(args.contest)})
-        contests.sort(key=lambda c : c['title'], reverse = True)
+    if isNew(contests, newContest):
+        contests.append(newContest)
+        contests.sort(key=lambda c : c['startTime'], reverse = True)
 
     with open('data/contests.json', 'w+') as fp:
         json.dump(contests, fp)
+
+def main():
+    parser = argparse.ArgumentParser(description='Leetcode ranking crawler')
+    parser.add_argument('contest', help='contest slug (ex: weekly-contest-178)')
+    args = parser.parse_args()
+
+    getRanking(args.contest)
+    getContestInfo(args.contest)
+
 
 if __name__ == "__main__":
     main()
