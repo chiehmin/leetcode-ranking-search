@@ -33,7 +33,38 @@
       <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
       <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
 
-      <b-table hover :items="contestProviders" :fields="fields">
+      <b-container fluid class="p-0">
+        <b-row align-h="between">
+          <b-col sm="5">
+            <b-pagination v-model="currentPage" :total-rows="total" :per-page="perPage" aria-controls="contest-table" ></b-pagination>
+          </b-col>
+          <b-col sm="3">
+            <b-form-input v-model="filterContest" type="search" placeholder="Search a contest..."></b-form-input>
+          </b-col>
+          <b-col sm="4">
+            <b-input-group>
+              <b-form-input
+                v-model="filterUser"
+                type="search"
+                placeholder="Search user contest history..."
+              ></b-form-input>
+              <b-input-group-append>
+                <b-button class="disabled" type="submit" variant="primary" v-on:click="searchUserHistory">Submit</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-col>
+        </b-row>
+      </b-container>
+
+      <b-table hover id="contest-table"
+        :items="contests"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+        :filter="filterContest"
+        :filter-included-fields="filteredOn"
+        @filtered="onFiltered"
+        :busy="isBusy">
         <template v-slot:head(title)="data">
           Contest
         </template>
@@ -49,17 +80,39 @@
       var app = new Vue({
         el: '#app',
         data: {
-					fields: ["title", "startTime"]
+          perPage: 15,
+          currentPage: 1,
+          contests: [],
+					fields: ["title", "startTime"],
+          filterContest: "",
+          filteredOn: ["title"],
+          isBusy: true,
+          totalRows: null,
+          filterUser: ""
+        },
+        computed: {
+          total: function() {
+            console.log(this.contests.length);
+            return this.totalRows || this.contests.length;
+          }
+        },
+        mounted: function() {
+          let self = this;
+          axios.get('data/contests.json')
+            .then(resp => {
+              self.contests = resp.data;
+              self.isBusy = false;
+            });
         },
         methods: {
-          contestProviders: function() {
-            return axios.get('data/contests.json')
-              .then(resp => {
-                return resp.data;
-              });
-          },
           timestampToDate: function(timestamp) {
             return new Date(timestamp * 1000).format('Y-m-d H:i:s');
+          },
+          onFiltered: function(filteredItems) {
+            this.currentPage = 1;
+            this.totalRows = filteredItems.length;
+          },
+          searchUserHistory: function() {
           }
         }
       });
