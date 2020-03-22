@@ -49,7 +49,7 @@
                 placeholder="Search user contest history..."
               ></b-form-input>
               <b-input-group-append>
-                <b-button class="disabled" type="submit" variant="primary" v-on:click="searchUserHistory">Submit</b-button>
+                <b-button id="user-history-submit" type="submit" variant="primary" v-on:click="searchUserHistory">Submit</b-button>
               </b-input-group-append>
             </b-input-group>
           </b-col>
@@ -75,6 +75,18 @@
           {{ timestampToDate(data.item.startTime) }}
         </template>
       </b-table>
+
+      <b-modal ref="user-history-modal" no-close-on-backdrop :hide-footer="true" :title="userContestHistoryTitle">
+        <b-table hover
+          :items="userContestHistory"
+          :fields="userContestHistoryFields"
+          :busy="userContestBusy"
+          sort-by="startTime"
+          :sort-desc="true"
+          show-empty
+          empty-text="no contest data found.">
+        </b-table>
+      </b-modal>
     </div>
     <script>
       var app = new Vue({
@@ -88,12 +100,18 @@
           filteredOn: ["title"],
           isBusy: true,
           totalRows: null,
-          filterUser: ""
+          // user contest history
+          filterUser: "",
+					userContestHistoryFields: ["contest", "rank", "participants"],
+          userContestHistory: [],
+          userContestBusy: false
         },
         computed: {
           total: function() {
-            console.log(this.contests.length);
             return this.totalRows || this.contests.length;
+          },
+          userContestHistoryTitle: function() {
+            return this.filterUser + "'s Contest History";
           }
         },
         mounted: function() {
@@ -112,7 +130,28 @@
             this.currentPage = 1;
             this.totalRows = filteredItems.length;
           },
+          slugTitle: function(title) {
+            words = title.split(" ");
+            for(var i = 0 ; i < words.length ; i++){
+              words[i] = words[i].charAt(0).toLowerCase() + words[i].substr(1);
+            }
+            return words.join("-");
+          },
           searchUserHistory: function() {
+            this.$refs['user-history-modal'].toggle('user-history-submit');
+            this.userContestBusy = true;
+            worker = new Worker("get_user_rank_worker.js");
+            worker.onmessage = function(e) {
+              if(e.data.contest) this.userContestHistory.push(e.data);
+              this.userContestBusy = false;
+            }.bind(this);
+            for (let contest of this.contests) {
+              axios.get('data/' + this.slugTitle(contest.title) + '.json')
+                .then(function(resp){
+                  let contestData = resp.data;
+                  worker.postMessage([this.filterUser, contest.title, contest.startTime, contestData]);
+                }.bind(this));
+            }
           }
         }
       });
