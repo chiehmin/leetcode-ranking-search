@@ -138,8 +138,9 @@
             return words.join("-");
           },
           searchUserHistory: function() {
-            this.$refs['user-history-modal'].toggle('user-history-submit');
+            this.userContestHistory = [];
             this.userContestBusy = true;
+            this.$refs['user-history-modal'].toggle('user-history-submit');
             worker = new Worker("get_user_rank_worker.js");
             worker.onmessage = function(e) {
               if(e.data.contest) this.userContestHistory.push(e.data);
