@@ -6,6 +6,8 @@ Website: https://fatminmin.com/leetcode-ranking-search/
 
 Leetcode contest ranking page lacks a search bar to search for the ranking of a specific user. So I implemented one.
 
+Besides searching a username in a contest, I also implemented a feature to search the ranking history among contests for a user!!
+
 The contest data is updated every week by setting up a scheduled pipeline using Github Actions.
 
 ## Crawling contest results
@@ -24,3 +26,5 @@ The website is purely static which can be served on any web server directly!!
 The UI is made with [Vue.js](https://vuejs.org/) and [BootstrapVue](https://bootstrap-vue.js.org/).
 
 ![sample](images/sample.png)
+
+![user_contest_history](images/user_contest_history.png)
