@@ -142,9 +142,15 @@
             this.userContestBusy = true;
             this.$refs['user-history-modal'].toggle('user-history-submit');
             worker = new Worker("get_user_rank_worker.js");
+            let retrievedCnt = 0;
             worker.onmessage = function(e) {
-              if(e.data.contest) this.userContestHistory.push(e.data);
-              this.userContestBusy = false;
+              if(e.data.contest) {
+                this.userContestHistory.push(e.data);
+              }
+              retrievedCnt++;
+              if (retrievedCnt == this.contests.length) {
+                this.userContestBusy = false;
+              }
             }.bind(this);
             for (let contest of this.contests) {
               axios.get('data/' + this.slugTitle(contest.title) + '.json')
