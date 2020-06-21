@@ -58,6 +58,7 @@
                 v-model="filterUser"
                 type="search"
                 placeholder="Search user contest history..."
+                @keydown.enter.native="searchUserHistory"
               ></b-form-input>
               <b-input-group-append>
                 <b-button id="user-history-submit" type="submit" variant="primary" v-on:click="searchUserHistory">Submit</b-button>
