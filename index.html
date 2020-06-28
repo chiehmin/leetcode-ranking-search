@@ -100,7 +100,7 @@
           <template v-slot:table-busy>
             <div class="text-center text-danger my-2">
               <b-spinner class="align-middle"></b-spinner>
-              <strong>Loading...</strong>
+              <strong>Loading {{ retrievedCnt }} / {{ totalContests }}...</strong>
             </div>
           </template>
         </b-table>
@@ -113,20 +113,24 @@
           perPage: 15,
           currentPage: 1,
           contests: [],
-					fields: ["title", "startTime"],
+          fields: ["title", "startTime"],
           filterContest: "",
           filteredOn: ["title"],
           isBusy: true,
           totalRows: null,
           // user contest history
           filterUser: "",
-					userContestHistoryFields: ["contest", "rank", "participants"],
+          userContestHistoryFields: ["contest", "rank", "participants"],
+          retrievedCnt: 0,
           userContestHistory: [],
           userContestBusy: false
         },
         computed: {
           total: function() {
             return this.totalRows || this.contests.length;
+          },
+          totalContests: function() {
+            return this.contests.length;
           },
           userContestHistoryTitle: function() {
             return this.filterUser + "'s Contest History";
@@ -148,34 +152,23 @@
             this.currentPage = 1;
             this.totalRows = filteredItems.length;
           },
-          slugTitle: function(title) {
-            words = title.split(" ");
-            for(var i = 0 ; i < words.length ; i++){
-              words[i] = words[i].charAt(0).toLowerCase() + words[i].substr(1);
-            }
-            return words.join("-");
-          },
           searchUserHistory: function() {
             this.userContestHistory = [];
             this.userContestBusy = true;
             this.$refs['user-history-modal'].toggle('user-history-submit');
             worker = new Worker("get_user_rank_worker.js");
-            let retrievedCnt = 0;
+            this.retrievedCnt = 0;
             worker.onmessage = function(e) {
               if(e.data.contest) {
                 this.userContestHistory.push(e.data);
               }
-              retrievedCnt++;
-              if (retrievedCnt == this.contests.length) {
+              this.retrievedCnt++;
+              if (this.retrievedCnt == this.contests.length) {
                 this.userContestBusy = false;
               }
             }.bind(this);
             for (let contest of this.contests) {
-              axios.get('data/' + this.slugTitle(contest.title) + '.json')
-                .then(function(resp){
-                  let contestData = resp.data;
-                  worker.postMessage([this.filterUser, contest.title, contest.startTime, contestData]);
-                }.bind(this));
+              worker.postMessage([this.filterUser, contest.title, contest.startTime]);
             }
           }
         }
