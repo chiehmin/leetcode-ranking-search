@@ -2,8 +2,10 @@ name: auto crawling contest data
 
 on:
   schedule:
-    - cron:  '0 18 * * 0' # for weekly contest data
-    - cron:  '0 0 * * 0'  # for bi-weekly contest
+    - cron:  '0 13 * * 0' # for weekly contest data (Sunday  13:00)
+    - cron:  '0 0 * * 2'  # for weekly contest data (Tuesday 00:00)
+    - cron:  '0 1 * * 0'  # for bi-weekly contest (Sunday 01:00)
+    - cron:  '0 9 * * 0'  # for bi-weekly contest (Sunday 09:00)
 
 jobs:
   crawling:
