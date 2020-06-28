@@ -19,5 +19,10 @@ onmessage = function(e) {
         }
       }
       postMessage({});
-    }.bind(this));
+    }.bind(this))
+    .catch(function(error) {
+      console.error("failed to retrieve contest data of " + contest);
+      console.error(error);
+      postMessage({});
+    }) ;
 }
