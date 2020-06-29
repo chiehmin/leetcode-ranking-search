@@ -1,6 +1,9 @@
 name: auto crawling contest data
 
 on:
+  # push:
+  #   branches:
+  #     - master
   schedule:
     - cron:  '0 13 * * 0' # for weekly contest data (Sunday  13:00)
     - cron:  '0 0 * * 2'  # for weekly contest data (Tuesday 00:00)
@@ -34,5 +37,5 @@ jobs:
         git config --global user.email "chiehmin18@gmail.com"
         git config --global user.name "[bot] github actions"
         git add .
-        git commit -a -m"AUTO UPDATE: update contest data for $latestContest"
+        git commit -a -m"AUTO UPDATE: update contest data for $latestContest" || true
         git push origin gh-pages
