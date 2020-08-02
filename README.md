@@ -25,6 +25,14 @@ The website is purely static which can be served on any web server directly!!
 
 The UI is made with [Vue.js](https://vuejs.org/) and [BootstrapVue](https://bootstrap-vue.js.org/).
 
-![sample](images/sample.png)
+User contest history search:
 
 ![user_contest_history](images/user_contest_history.png)
+
+Contest user search:
+
+![user_search](images/user_search.png)
+
+Contest country filter:
+
+![country_filter](images/country_filter.png)
