@@ -120,7 +120,16 @@
           totalRows: null,
           // user contest history
           filterUser: "",
-          userContestHistoryFields: ["contest", "rank", "participants"],
+          userContestHistoryFields: [{
+            key: "contest",
+          }, {
+            key: "rank",
+            // label: "Rank (Percentile)",
+          }, {
+            key: "percentile"
+          }, {
+            key: "participants"
+          }],
           retrievedCnt: 0,
           userContestHistory: [],
           userContestBusy: false

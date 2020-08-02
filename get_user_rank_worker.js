@@ -15,7 +15,14 @@ onmessage = function(e) {
       let contestData = resp.data;
       for (let userRank of contestData) {
         if (userRank.username.toLowerCase() == user.toLowerCase()) {
-          postMessage({"contest": contest, "startTime": startTime, "rank": userRank.rank, "participants": contestData.length});
+          let percentile = (userRank.rank * 100.0 / contestData.length).toFixed(2) + "%";
+          postMessage({
+            "contest": contest,
+            "startTime": startTime,
+            "rank": userRank.rank,
+            "percentile": percentile,
+            "participants": contestData.length
+          });
         }
       }
       postMessage({});
