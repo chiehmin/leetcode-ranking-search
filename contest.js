@@ -69,7 +69,10 @@ var app = new Vue({
     onFiltered: function (filteredItems) {
       this.currentPage = 1;
       this.totalRows = filteredItems.length;
-    }
+    },
+    profileLink: function(username) {
+      return `https://leetcode.com/${username}`;
+    },
   },
   mounted: function () {
     this.loadCountry();

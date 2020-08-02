@@ -94,6 +94,9 @@
             <strong>Loading...</strong>
           </div>
         </template>
+        <template v-slot:cell(username)="row">
+          <b-link :href="profileLink(row.value)" target="_blank">{{ row.value }}</b-link>
+        </template>
       </b-table>
 
     </div>
