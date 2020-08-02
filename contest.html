@@ -57,9 +57,17 @@
               aria-controls="rank-table"
               ></b-pagination>
           </b-col>
-          <b-col sm="7">
+          <b-col sm="3">
+            <b-row align-h="end">
+              <b-form-select
+                v-model="countryFilter"
+                :options="countryList"
+              ></b-form-input>
+            </b-row>
+          </b-col>
+          <b-col sm="4">
             <b-form-input
-              v-model="filter"
+              v-model="userFilter"
               debounce="500"
               type="search"
               placeholder="Search a user..."
@@ -75,8 +83,8 @@
         :per-page="perPage"
         :current-page="currentPage"
         :busy="isBusy"
-        :filter="filter"
-        :filter-function="filterUser"
+        :filter="filterTrigger"
+        :filter-function="filterFunc"
         :filter-included-fields="filteredOn"
         @filtered="onFiltered"
         >
@@ -89,59 +97,6 @@
       </b-table>
 
     </div>
-    <script>
-      var app = new Vue({
-        el: '#app',
-        data: {
-          title: "",
-          perPage: 25,
-          currentPage: 1,
-          fields: ['rank', 'username', 'country_name', 'score', 'finish_time', 'data_region'],
-          rank: [],
-          filter: null,
-          filteredOn: ["username"],
-          totalRows: null,
-          isBusy: true
-        },
-        computed: {
-          total: function() {
-            return this.totalRows || this.rank.length;
-          },
-          unSlugTitle: function() {
-            words = this.title.split("-");
-            for(var i = 0 ; i < words.length ; i++){
-              words[i] = words[i].charAt(0).toUpperCase() + words[i].substr(1);
-            }
-            return words.join(" ");
-          }
-        },
-        methods: {
-          loadData: function() {
-            contest = new URLSearchParams(new URL(document.URL).search).get("contest");
-            contest = contest ? contest : 'latest';
-
-            // loading contest data
-            let self = this
-            axios.get('data/' + contest + '.json')
-              .then(function(resp){
-                self.isBusy = false;
-                self.rank = resp.data;
-              });
-
-            this.title = contest;
-          },
-          filterUser: function(row, filter) {
-            return (row.username.toLowerCase().startsWith(filter.toLowerCase())) ? true : false;
-          },
-          onFiltered: function(filteredItems) {
-            this.currentPage = 1;
-            this.totalRows = filteredItems.length;
-          }
-        },
-        mounted: function() {
-          this.loadData();
-        }
-      });
-    </script>
+    <script src="./contest.js"></script>
   </body>
 </html>
