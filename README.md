@@ -4,26 +4,18 @@
 
 Website: https://fatminmin.com/leetcode-ranking-search/
 
-Leetcode contest ranking page lacks a search bar to search for the ranking of a specific user. So I implemented one.
+Official Leetcode contest ranking page lacks advance search/filter functions. So I implemented one!!
 
-Besides searching a username in a contest, I also implemented a feature to search the ranking history among contests for a user!!
+Features:
 
-The contest data is updated every week by setting up a scheduled pipeline using Github Actions.
+- Search users contest ranking history
+- Filter ranking data by username and country
 
-## Crawling contest results
-
-By simply executing the `crawler.py` script, the contest results will be parsed and saved into `data/<contest>.json`.
-
-```sh
-# crawling results of weekly contest 179
-./crawler.py weekly-contest-179
-```
-
-## Web UI
-
-The website is purely static which can be served on any web server directly!!
+The contest data is updated every week by setting up a scheduled pipeline using Github Actions. And the site is purely static which can be served on any web server directly!!
 
 The UI is made with [Vue.js](https://vuejs.org/) and [BootstrapVue](https://bootstrap-vue.js.org/).
+
+## Screenshots
 
 User contest history search:
 
@@ -36,3 +28,15 @@ Contest user search:
 Global ranking with country filter:
 
 ![global_ranking](images/global_ranking.png)
+
+## Crawling contest results
+
+By simply executing the crawler scripts, the contest ranking results will be parsed and saved.
+
+```sh
+# crawling a single contest ranking result
+./crawler.py weekly-contest-179
+
+# crawling global ranking
+./global_ranking_crawler.py
+```
