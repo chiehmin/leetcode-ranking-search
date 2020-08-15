@@ -146,12 +146,16 @@
           }
         },
         mounted: function() {
-          let self = this;
+          this.contests = [{
+            "title": "Global Ranking",
+            "href": "global_ranking.html",
+            "startTime": 0,
+          }];
           axios.get('data/contests.json')
-            .then(resp => {
-              self.contests = resp.data;
-              self.isBusy = false;
-            });
+            .then(function(resp) {
+              this.contests = this.contests.concat(resp.data);
+              this.isBusy = false;
+            }.bind(this));
         },
         methods: {
           timestampToDate: function(timestamp) {
