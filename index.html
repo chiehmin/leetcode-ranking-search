@@ -181,6 +181,9 @@
               }
             }.bind(this);
             for (let contest of this.contests) {
+              if (contest.title === "Global Ranking") {
+                continue;
+              }
               worker.postMessage([this.filterUser, contest.title, contest.startTime]);
             }
           }
