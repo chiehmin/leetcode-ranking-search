@@ -18,26 +18,16 @@ var app = new Vue({
     },
   },
   methods: {
-
     rankProvider: function(ctx) {
       if (this.rank.length === 0) {
-        return new Promise((resolve, reject) => {
-                      let worker = new Worker("get_global_ranking_worker.js");
-                      worker.onmessage = function(resp) {
-                        console.log("yooo");
-                        resolve(resp);
-                      };
-                      worker.postMessage({});
-                    }).then(function (resp) {
-                      if (!resp.data) {
-                        return [];
-                      }
-                      this.rank = JSON.parse(resp.data.rankingData).data;
-                      this.filteredRank = this.rank;
-                      this.totalRows = this.rank.length;
-                      let start = (this.currentPage - 1) * this.perPage;
-                      return this.rank.slice(start, this.perPage);
-                    }.bind(this));
+        return axios.get('data/global-ranking.json')
+                  .then(function (resp) {
+                    this.rank = resp.data;
+                    this.filteredRank = this.rank;
+                    this.totalRows = this.rank.length;
+                    let start = (this.currentPage - 1) * this.perPage;
+                    return this.rank.slice(start, this.perPage);
+                  }.bind(this));
       } else {
         if (this.lastFilter != ctx.filter) {
           this.currentPage = 1;
