@@ -70,8 +70,12 @@ var app = new Vue({
       this.currentPage = 1;
       this.totalRows = filteredItems.length;
     },
-    profileLink: function(username) {
-      return `https://leetcode.com/${username}`;
+    profileLink: function(username, data_region) {
+      if ("CN" == data_region) {
+        return `https://leetcode-cn.com/u/${username}`;
+      } else {
+        return `https://leetcode.com/${username}`;
+      }
     },
   },
   mounted: function () {
