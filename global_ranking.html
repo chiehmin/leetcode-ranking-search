@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <!-- GA -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-7408997-11"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-7408997-11');
+    </script>
+
+    <!-- Required Stylesheets -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+      />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+      />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <title>Leetcode Ranking</title>
+  </head>
+  <body>
+    <div id="app" class="px-5 py-3">
+      <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
+        <b-navbar-brand href="#">Global Ranking</b-navbar-brand>
+        <b-navbar-nav>
+          <b-nav-item href="index.html">All Contests</b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
+
+      <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
+      <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
+
+      <b-container fluid class="p-0">
+        <b-row align-h="between">
+          <b-col sm="5">
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="totalRows"
+              :per-page="perPage"
+              aria-controls="rank-table"
+              ></b-pagination>
+          </b-col>
+          <b-col sm="3">
+            <b-row align-h="end">
+              <b-form-select
+                v-model="countryFilter"
+                :options="countryList"
+              ></b-form-input>
+            </b-row>
+          </b-col>
+          <b-col sm="4">
+            <b-form-input
+              v-model="userFilter"
+              debounce="500"
+              type="search"
+              placeholder="Search a user..."
+              ></b-form-input>
+          </b-col>
+        </b-row>
+      </b-container>
+
+      <b-table hover
+        id="rank-table"
+        :fields="fields"
+        :items="rankProvider"
+        :per-page="0"
+        :current-page="currentPage"
+        :filter="filterTrigger"
+        >
+        <template v-slot:table-busy>
+          <div class="text-center text-danger my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
+        <template v-slot:cell(username)="row">
+          <b-link :href="profileLink(row.value)" target="_blank">{{ row.value }}</b-link>
+        </template>
+        <template v-slot:cell(rating)="rating">
+            {{ Math.round(rating.value) }}
+        </template>
+      </b-table>
+
+    </div>
+    <script src="./global_ranking.js"></script>
+  </body>
+</html>

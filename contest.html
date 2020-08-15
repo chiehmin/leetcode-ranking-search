@@ -95,7 +95,7 @@
           </div>
         </template>
         <template v-slot:cell(username)="row">
-          <b-link :href="profileLink(row.value)" target="_blank">{{ row.value }}</b-link>
+          <b-link :href="profileLink(row.value, row.item.data_region)" target="_blank">{{ row.value }}</b-link>
         </template>
       </b-table>
 
