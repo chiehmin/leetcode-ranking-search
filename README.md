@@ -33,6 +33,6 @@ Contest user search:
 
 ![user_search](images/user_search.png)
 
-Contest country filter:
+Global ranking with country filter:
 
-![country_filter](images/country_filter.png)
+![global_ranking](images/global_ranking.png)
