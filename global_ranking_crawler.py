@@ -21,6 +21,7 @@ r'''{
                 profile {
                     countryCode
                     countryName
+                    realName
                 }
             }
         }
@@ -52,6 +53,7 @@ r'''{
                 rankItem['rating'] = rankNode['currentRating']
                 rankItem['globalRanking'] = rankNode['currentGlobalRanking']
                 rankItem['username'] = rankNode['user']['username']
+                rankItem['realName'] = rankNode['user']['profile']['realName']
                 if rankNode['dataRegion'] == 'CN':
                     rankItem['country'] = 'China'
                 else:
