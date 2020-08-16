@@ -34,6 +34,7 @@ jobs:
         latestContest=$(curl 'https://leetcode.com/graphql' -H 'content-type: application/json' --data-binary '{"operationName":null,"variables":{},"query":"{\n  allContests {\n    title\n    titleSlug\n    startTime\n    duration\n    originStartTime\n}\n}\n"}' --compressed | jq "[.data.allContests[] | select(.startTime < ${timestamp})][0].titleSlug" | sed -e s/\"//g)
         echo "Start crawling contest data for $latestContest"
         python3 ./crawler.py $latestContest
+        git pull origin gh-pages --rebase
         git config --global user.email "chiehmin18@gmail.com"
         git config --global user.name "[bot] github actions"
         git add .
