@@ -1,9 +1,6 @@
-name: auto crawling contest data
+name: crawling contest data
 
 on:
-  # push:
-  #   branches:
-  #     - master
   schedule:
     - cron:  '0 13 * * 0' # for weekly contest data (Sunday  13:00)
     - cron:  '0 0 * * 2'  # for weekly contest data (Tuesday 00:00)

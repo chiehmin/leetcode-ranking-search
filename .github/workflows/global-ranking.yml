@@ -1,0 +1,36 @@
+name: crawling global ranking
+
+on:
+  # push:
+  #   branches:
+  #     - master
+  schedule:
+    - cron:  '0 3 * * 4' # update global ranking on every Thursday
+    - cron:  '0 3 * * 5' # update global ranking on every Friday
+
+jobs:
+  crawling:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+      with:
+        ref: 'gh-pages'
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.x
+    - name: Install dependencies
+      run: |
+        python3 -m pip install requests
+
+    - name: crawling for contest data
+      run: |
+        python3 ./global_ranking_crawler.py
+        git config --global user.email "chiehmin18@gmail.com"
+        git config --global user.name "[bot] github actions"
+        git add .
+        git commit -a -m"AUTO UPDATE: update global ranking" || true
+        git push origin gh-pages
