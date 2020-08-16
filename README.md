@@ -1,6 +1,7 @@
 # Leetcode Contest Ranking Searcher
 
-[![auto crawling contest data](https://github.com/chiehmin/leetcode-ranking-search/workflows/auto%20crawling%20contest%20data/badge.svg)](https://github.com/chiehmin/leetcode-ranking-search/actions)
+[![crawling contest data](https://github.com/chiehmin/leetcode-ranking-search/workflows/crawling%20contest%20data/badge.svg)](https://github.com/chiehmin/leetcode-ranking-search/actions?query=workflow%3A%22crawling+contest+data%22)
+[![crawling global ranking](https://github.com/chiehmin/leetcode-ranking-search/workflows/crawling%20global%20ranking/badge.svg)](https://github.com/chiehmin/leetcode-ranking-search/actions?query=workflow%3A%22crawling+global+ranking%22)
 [![GitHub license](https://img.shields.io/github/license/chiehmin/leetcode-ranking-search)](https://github.com/chiehmin/leetcode-ranking-search/blob/master/LICENSE)
 
 Website: https://fatminmin.com/leetcode-ranking-search/
