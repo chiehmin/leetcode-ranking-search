@@ -33,4 +33,5 @@ jobs:
         git config --global user.name "[bot] github actions"
         git add .
         git commit -a -m"AUTO UPDATE: update global ranking" || true
+        git pull origin gh-pages --rebase
         git push origin gh-pages

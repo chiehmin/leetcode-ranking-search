@@ -45,7 +45,6 @@ r'''{
             resp = resp['data']['globalRanking']
             # no more data
             if len(resp['rankingNodes']) == 0:
-                print('yoo')
                 break
 
             for rankNode in resp['rankingNodes']:
