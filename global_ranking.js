@@ -3,7 +3,7 @@ var app = new Vue({
   data: {
     perPage: 25,
     currentPage: 1,
-    fields: ['globalRanking', 'username', 'rating', 'country'],
+    fields: ['globalRanking', 'username', 'realName', 'rating', 'country'],
     rank: [],
     filteredRank: [],
     userFilter: "",
