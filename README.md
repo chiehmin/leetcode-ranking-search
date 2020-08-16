@@ -1,6 +1,7 @@
 # Leetcode Contest Ranking Searcher
 
 [![auto crawling contest data](https://github.com/chiehmin/leetcode-ranking-search/workflows/auto%20crawling%20contest%20data/badge.svg)](https://github.com/chiehmin/leetcode-ranking-search/actions)
+[![GitHub license](https://img.shields.io/github/license/chiehmin/leetcode-ranking-search)](https://github.com/chiehmin/leetcode-ranking-search/blob/master/LICENSE)
 
 Website: https://fatminmin.com/leetcode-ranking-search/
 
