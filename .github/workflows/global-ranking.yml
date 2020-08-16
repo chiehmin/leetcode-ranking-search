@@ -1,9 +1,9 @@
 name: crawling global ranking
 
 on:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - manual-update-trigger
   schedule:
     - cron:  '0 3 * * 4' # update global ranking on every Thursday
     - cron:  '0 3 * * 5' # update global ranking on every Friday
