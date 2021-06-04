@@ -18,7 +18,7 @@ def getRanking(contest):
         if (0 == len(page_rank)):
             break
         total_rank.extend(resp['total_rank'])
-        print('Retreived ranking from page {}. {} retreived.'.format(page, len(total_rank)))
+        print('Retrieved ranking from page {}. {} retrieved.'.format(page, len(total_rank)))
         page = page + 1
 
     # discard and transform fields
@@ -32,7 +32,7 @@ def getRanking(contest):
             rank["finish_time"] = datetime.datetime.fromtimestamp(int(finish_timestamp)).isoformat()
 
     persistent_file = 'data/{}.json'.format(contest)
-    print('Save retreived ranking to {}'.format(persistent_file))
+    print('Save retrieved ranking to {}'.format(persistent_file))
     with open(persistent_file, 'w') as fp:
         json.dump(total_rank, fp)
 
