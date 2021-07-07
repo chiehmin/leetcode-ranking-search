@@ -11,15 +11,21 @@ def getRanking(contest):
     API_URL_FMT = 'https://leetcode.com/contest/api/ranking/{}/?pagination={}&region=global'
     page = 1
     total_rank = []
+    retry_cnt = 0
     while True:
-        url = API_URL_FMT.format(contest, page)
-        resp = requests.get(url).json()
-        page_rank = resp['total_rank']
-        if (0 == len(page_rank)):
-            break
-        total_rank.extend(resp['total_rank'])
-        print('Retrieved ranking from page {}. {} retrieved.'.format(page, len(total_rank)))
-        page = page + 1
+        try:
+            url = API_URL_FMT.format(contest, page)
+            resp = requests.get(url).json()
+            page_rank = resp['total_rank']
+            if (0 == len(page_rank)):
+                break
+            total_rank.extend(resp['total_rank'])
+            print('Retrieved ranking from page {}. {} retrieved.'.format(page, len(total_rank)))
+            page += 1
+            retry_cnt = 0
+        except:
+            print(f'Failed to retrieved data of page {page}...retry...{retry_cnt}')
+            retry_cnt += 1
 
     # discard and transform fields
     for rank in total_rank:
