@@ -29,9 +29,9 @@ jobs:
     - name: crawling for contest data
       run: |
         python3 ./global_ranking_crawler.py
-        git pull origin gh-pages --rebase
         git config --global user.email "chiehmin18@gmail.com"
         git config --global user.name "[bot] github actions"
         git add .
         git commit -a -m"AUTO UPDATE: update global ranking" || true
+        git pull origin gh-pages --rebase
         git push origin gh-pages
