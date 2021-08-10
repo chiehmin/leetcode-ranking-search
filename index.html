@@ -22,6 +22,17 @@
       rel="stylesheet"
       href="https://unpkg.com/bootstrap-vue@^2.0.0/dist/bootstrap-vue.css"
       />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="light.css"
+      id="theme"
+      />
 
     <!-- Load polyfills to support older browsers -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
@@ -34,12 +45,15 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="date.format.js"></script>
 
+    <script async type='text/javascript' src='script.js'></script>
+
     <title>Leetcode Ranking</title>
   </head>
   <body>
     <div id="app" class="px-5 py-3">
       <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
         <b-navbar-brand href="#">Leetcode contest ranking searcher</b-navbar-brand>
+        <button type="button" class="btn btn-secondary"><i class="fas fa-moon" id="switch"> Change theme</i></button>
       </b-navbar>
       <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
       <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
