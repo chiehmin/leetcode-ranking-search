@@ -1,0 +1,109 @@
+{
+  "name": "@bootstrap-vue/progress",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Progress",
+    "description": "A custom progress component for displaying simple or complex progress bars, featuring support for horizontally stacked bars, animated backgrounds, and text labels.",
+    "components": [
+      {
+        "component": "BProgress",
+        "props": [
+          {
+            "prop": "animated",
+            "description": "Enable the animated background. Also automatically sets 'striped'"
+          },
+          {
+            "prop": "height",
+            "description": "Override the default height by specifying a CSS height value (including units)"
+          },
+          {
+            "prop": "max",
+            "description": "Set the maximum value"
+          },
+          {
+            "prop": "precision",
+            "description": "The number of digits after the decimal to round the value to"
+          },
+          {
+            "prop": "showProgress",
+            "description": "Displays the current progress value as a percentage"
+          },
+          {
+            "prop": "showValue",
+            "description": "Displays the current progress value"
+          },
+          {
+            "prop": "striped",
+            "description": "Enable the striped background"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the progress bar"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (progress bars) to place in the progress element"
+          }
+        ]
+      },
+      {
+        "component": "BProgressBar",
+        "props": [
+          {
+            "prop": "animated",
+            "description": "Enable the animated background. Also automatically sets 'striped'"
+          },
+          {
+            "prop": "label",
+            "description": "Text string to explicitly set the label as"
+          },
+          {
+            "prop": "labelHtml",
+            "description": "HTML string to explicitly set the label as",
+            "xss": true
+          },
+          {
+            "prop": "max",
+            "description": "Set the maximum value"
+          },
+          {
+            "prop": "precision",
+            "description": "The number of digits after the decimal to round the value to"
+          },
+          {
+            "prop": "showProgress",
+            "description": "Displays the current progress value as a percentage"
+          },
+          {
+            "prop": "showValue",
+            "description": "Displays the current progress value"
+          },
+          {
+            "prop": "striped",
+            "description": "Enable the striped background"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the progress bar"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the progress bar. Overrides the `label`, `label-html`, `show-progress` and `show-value` props"
+          }
+        ]
+      }
+    ]
+  }
+}

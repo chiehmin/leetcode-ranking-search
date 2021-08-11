@@ -1,0 +1,66 @@
+export var EVENT_NAME_ACTIVATE_TAB = 'activate-tab';
+export var EVENT_NAME_BLUR = 'blur';
+export var EVENT_NAME_CANCEL = 'cancel';
+export var EVENT_NAME_CHANGE = 'change';
+export var EVENT_NAME_CHANGED = 'changed';
+export var EVENT_NAME_CLICK = 'click';
+export var EVENT_NAME_CLOSE = 'close';
+export var EVENT_NAME_CONTEXT = 'context';
+export var EVENT_NAME_CONTEXT_CHANGED = 'context-changed';
+export var EVENT_NAME_DESTROYED = 'destroyed';
+export var EVENT_NAME_DISABLE = 'disable';
+export var EVENT_NAME_DISABLED = 'disabled';
+export var EVENT_NAME_DISMISSED = 'dismissed';
+export var EVENT_NAME_DISMISS_COUNT_DOWN = 'dismiss-count-down';
+export var EVENT_NAME_ENABLE = 'enable';
+export var EVENT_NAME_ENABLED = 'enabled';
+export var EVENT_NAME_FILTERED = 'filtered';
+export var EVENT_NAME_FIRST = 'first';
+export var EVENT_NAME_FOCUSIN = 'focusin';
+export var EVENT_NAME_FOCUSOUT = 'focusout';
+export var EVENT_NAME_HEAD_CLICKED = 'head-clicked';
+export var EVENT_NAME_HIDDEN = 'hidden';
+export var EVENT_NAME_HIDE = 'hide';
+export var EVENT_NAME_IMG_ERROR = 'img-error';
+export var EVENT_NAME_INPUT = 'input';
+export var EVENT_NAME_LAST = 'last';
+export var EVENT_NAME_MOUSEENTER = 'mouseenter';
+export var EVENT_NAME_MOUSELEAVE = 'mouseleave';
+export var EVENT_NAME_NEXT = 'next';
+export var EVENT_NAME_OK = 'ok';
+export var EVENT_NAME_OPEN = 'open';
+export var EVENT_NAME_PAGE_CLICK = 'page-click';
+export var EVENT_NAME_PAUSED = 'paused';
+export var EVENT_NAME_PREV = 'prev';
+export var EVENT_NAME_REFRESH = 'refresh';
+export var EVENT_NAME_REFRESHED = 'refreshed';
+export var EVENT_NAME_REMOVE = 'remove';
+export var EVENT_NAME_ROW_CLICKED = 'row-clicked';
+export var EVENT_NAME_ROW_CONTEXTMENU = 'row-contextmenu';
+export var EVENT_NAME_ROW_DBLCLICKED = 'row-dblclicked';
+export var EVENT_NAME_ROW_HOVERED = 'row-hovered';
+export var EVENT_NAME_ROW_MIDDLE_CLICKED = 'row-middle-clicked';
+export var EVENT_NAME_ROW_SELECTED = 'row-selected';
+export var EVENT_NAME_ROW_UNHOVERED = 'row-unhovered';
+export var EVENT_NAME_SELECTED = 'selected';
+export var EVENT_NAME_SHOW = 'show';
+export var EVENT_NAME_SHOWN = 'shown';
+export var EVENT_NAME_SLIDING_END = 'sliding-end';
+export var EVENT_NAME_SLIDING_START = 'sliding-start';
+export var EVENT_NAME_SORT_CHANGED = 'sort-changed';
+export var EVENT_NAME_TAG_STATE = 'tag-state';
+export var EVENT_NAME_TOGGLE = 'toggle';
+export var EVENT_NAME_UNPAUSED = 'unpaused';
+export var EVENT_NAME_UPDATE = 'update';
+export var HOOK_EVENT_NAME_BEFORE_DESTROY = 'hook:beforeDestroy';
+export var HOOK_EVENT_NAME_DESTROYED = 'hook:destroyed';
+export var MODEL_EVENT_NAME_PREFIX = 'update:';
+export var ROOT_EVENT_NAME_PREFIX = 'bv';
+export var ROOT_EVENT_NAME_SEPARATOR = '::';
+export var EVENT_OPTIONS_PASSIVE = {
+  passive: true
+};
+export var EVENT_OPTIONS_NO_CAPTURE = {
+  passive: true,
+  capture: false
+};

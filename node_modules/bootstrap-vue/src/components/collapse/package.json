@@ -1,0 +1,111 @@
+{
+  "name": "@bootstrap-vue/collapse",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Collapse",
+    "description": "Easily toggle content visibility on your pages. Includes support for making accordions.",
+    "plugins": [
+      "VBTogglePlugin"
+    ],
+    "components": [
+      {
+        "component": "BCollapse",
+        "props": [
+          {
+            "prop": "accordion",
+            "description": "The name of the accordion group that this collapse belongs to"
+          },
+          {
+            "prop": "appear",
+            "version": "2.2.0",
+            "description": "When set, and prop 'visible' is true on mount, will animate on initial mount"
+          },
+          {
+            "prop": "isNav",
+            "description": "When set, signifies that the collapse is part of a navbar, enabling certain features for navbar support"
+          },
+          {
+            "prop": "visible",
+            "description": "When 'true', expands the collapse"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "version": "2.2.0",
+            "scope": [
+              {
+                "prop": "close",
+                "type": "Function",
+                "description": "Method for closing the collapse"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "Visible state of the collapse. `true` if the collapse is visible"
+              }
+            ]
+          }
+        ],
+        "events": [
+          {
+            "event": "bv::collapse::state",
+            "description": "Emitted on $root when collapse has changed its state",
+            "args": [
+              {
+                "arg": "id",
+                "type": "String",
+                "description": "Changed state collapse ID"
+              },
+              {
+                "arg": "state",
+                "type": "Boolean",
+                "description": "`true` or `false`, i.e. opened or closed"
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when collapse has finished closing"
+          },
+          {
+            "event": "hide",
+            "description": "Emitted when collapse has started to close"
+          },
+          {
+            "event": "input",
+            "description": "Used to update the v-model",
+            "args": [
+              {
+                "arg": "visible",
+                "type": "Boolean",
+                "description": "Will be true if the collapse is visible"
+              }
+            ]
+          },
+          {
+            "event": "show",
+            "description": "Emitted when collapse has started to open"
+          },
+          {
+            "event": "shown",
+            "description": "Emitted when collapse has finished opening"
+          }
+        ],
+        "rootEventListeners": [
+          {
+            "event": "bv::toggle::collapse",
+            "description": "Toggles visible state of collapse with specified ID when this event is emitted on $root",
+            "args": [
+              {
+                "arg": "id",
+                "type": "String",
+                "description": "Collapse ID to toggle"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

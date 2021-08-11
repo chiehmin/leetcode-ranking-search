@@ -1,0 +1,14 @@
+export var CODE_BACKSPACE = 8;
+export var CODE_BREAK = 19;
+export var CODE_DELETE = 46;
+export var CODE_DOWN = 40;
+export var CODE_END = 35;
+export var CODE_ENTER = 13;
+export var CODE_ESC = 27;
+export var CODE_HOME = 36;
+export var CODE_LEFT = 37;
+export var CODE_PAGEDOWN = 34;
+export var CODE_PAGEUP = 33;
+export var CODE_RIGHT = 39;
+export var CODE_SPACE = 32;
+export var CODE_UP = 38;
