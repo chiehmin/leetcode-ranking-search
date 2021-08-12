@@ -73,7 +73,6 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-import UserRankingWorker from './scripts/get_user_rank_worker'
 
 export default {
   name: 'App',
@@ -142,7 +141,7 @@ export default {
       this.userContestHistory = [];
       this.userContestBusy = true;
       this.$refs['user-history-modal'].toggle('user-history-submit');
-      var worker = new UserRankingWorker;
+      var worker = new Worker("/scripts/get_user_rank.worker.js");
       this.retrievedCnt = 0;
       worker.onmessage = function(e) {
         if(e.data.contest) {
