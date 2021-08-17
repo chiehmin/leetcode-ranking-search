@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath: "",
+    publicPath: "/leetcode-ranking-search",
     pages: {
         index: {
             entry: "src/main.js",
