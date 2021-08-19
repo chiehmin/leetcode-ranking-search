@@ -25,9 +25,9 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install requests
-        apt update -y
-        apt install nodejs npm -y
-        npm install -g @vue/cli
+        sudo apt update -y
+        sudo apt install nodejs npm -y
+        sudo npm install -g @vue/cli
         npm install
 
     - name: crawling for global ranking data
