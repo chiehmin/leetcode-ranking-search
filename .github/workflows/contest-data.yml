@@ -46,7 +46,7 @@ jobs:
 
     - name: Install and Build 🔧
       run: |
-          npm install
+          npm install --no-save
           npm run build
 
     - name: Deploy 🚀
