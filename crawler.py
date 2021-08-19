@@ -52,9 +52,14 @@ def getContestInfo(contest):
                 return False
         return True
 
-    CONTEST_INFO_API_URL_FMT = 'https://leetcode.com/contest/api/info/{}/'
-    resp = requests.get(CONTEST_INFO_API_URL_FMT.format(contest)).json()
-    startTimestamp = int(resp['contest']['start_time'])
+    while True:
+        try:
+            CONTEST_INFO_API_URL_FMT = 'https://leetcode.com/contest/api/info/{}/'
+            resp = requests.get(CONTEST_INFO_API_URL_FMT.format(contest)).json()
+            startTimestamp = int(resp['contest']['start_time'])
+            break
+        except:
+            print('Failed to retrieved contest info...retry...')
 
     newContest = {
         "title": unSlug(contest),
