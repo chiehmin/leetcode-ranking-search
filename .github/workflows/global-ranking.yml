@@ -2,8 +2,8 @@ name: crawling global ranking
 
 on:
   push:
-    branches:
-      - manual-update-trigger
+    tags:
+      - '*'
   schedule:
     - cron:  '0 3 * * 4' # update global ranking on every Thursday
     - cron:  '0 3 * * 5' # update global ranking on every Friday
@@ -18,20 +18,35 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       with:
-        ref: 'gh-pages'
+        ref: 'master'
     - uses: actions/setup-python@v1
       with:
         python-version: 3.x
     - name: Install dependencies
       run: |
         python3 -m pip install requests
+        apt update -y
+        apt install nodejs npm -y
+        npm install -g @vue/cli
+        npm install
 
-    - name: crawling for contest data
+    - name: crawling for global ranking data
       run: |
         python3 ./global_ranking_crawler.py
         git config --global user.email "chiehmin18@gmail.com"
         git config --global user.name "[bot] github actions"
         git add .
         git commit -a -m"AUTO UPDATE: update global ranking" || true
+        git pull origin master --rebase
+        git push origin master
+
+    - name: deploy the site
+      run: |
+        npm run build
+        git checkout gh-pages
+        rm -rf js css
+        cp -r dist/*
+        git add .
+        git commit -a -m"AUTO UPDATE: deploy site" || true
         git pull origin gh-pages --rebase
         git push origin gh-pages
