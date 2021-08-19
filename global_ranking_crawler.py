@@ -71,7 +71,7 @@ r'''{
                 retry_cnt += 1
 
     def save(self):
-        file_path = 'data/global-ranking.json'
+        file_path = 'public/data/global-ranking.json'
         print('Save global ranking to {}'.format(file_path))
         with open(file_path, 'w') as fp:
             json.dump(self.rankItems, fp)

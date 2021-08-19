@@ -37,7 +37,7 @@ def getRanking(contest):
         if finish_timestamp:
             rank["finish_time"] = datetime.datetime.fromtimestamp(int(finish_timestamp)).isoformat()
 
-    persistent_file = 'data/{}.json'.format(contest)
+    persistent_file = 'public/data/{}.json'.format(contest)
     print('Save retrieved ranking to {}'.format(persistent_file))
     with open(persistent_file, 'w') as fp:
         json.dump(total_rank, fp)
@@ -62,8 +62,8 @@ def getContestInfo(contest):
         "startTime": startTimestamp
     }
 
-    if os.path.exists('data/contests.json'):
-        with open('data/contests.json', 'r') as fp:
+    if os.path.exists('public/data/contests.json'):
+        with open('public/data/contests.json', 'r') as fp:
             contests = json.load(fp)
     else:
         contests = []
@@ -72,7 +72,7 @@ def getContestInfo(contest):
         contests.append(newContest)
         contests.sort(key=lambda c : c['startTime'], reverse = True)
 
-    with open('data/contests.json', 'w+') as fp:
+    with open('public/data/contests.json', 'w+') as fp:
         json.dump(contests, fp)
 
 def main():
