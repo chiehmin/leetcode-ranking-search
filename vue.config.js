@@ -8,6 +8,14 @@ module.exports = {
             title: "Leetcode Ranking Search",
             chunks: ["chunk-vendors", "chunk-common", "index"]
         },
+        // redirect all 404 not found page to index
+        not_found: {
+            entry: "src/main.js",
+            template: "public/index.html",
+            filename: "404.html",
+            title: "Leetcode Ranking Search",
+            chunks: ["chunk-vendors", "chunk-common", "index"]
+        },
         contest: {
             entry: "src/contest.js",
             template: "public/index.html",
