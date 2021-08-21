@@ -1,10 +1,8 @@
 <template>
-  <div id="app" class="px-5 py-3">
+  <div id="app" class="px-5">
     <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
       <b-navbar-brand href="#">Leetcode contest ranking searcher</b-navbar-brand>
     </b-navbar>
-    <a class="github-button" href="https://github.com/chiehmin" data-size="large" data-show-count="true" aria-label="Follow @chiehmin on GitHub">Follow @chiehmin</a>
-    <a class="github-button" href="https://github.com/chiehmin/leetcode-ranking-search" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chiehmin/leetcode-ranking-search on GitHub">Star</a>
 
     <b-container fluid class="p-0">
       <b-row align-h="between">
@@ -43,7 +41,7 @@
         Contest
       </template>
       <template v-slot:cell(title)="data">
-        <b-link :href="data.item.href">{{ data.item.title }}</b-link>
+        <router-link :to="data.item.href">{{ data.item.title }}</router-link>
       </template>
       <template v-slot:cell(startTime)="data">
         {{ timestampToDate(data.item.startTime) }}
