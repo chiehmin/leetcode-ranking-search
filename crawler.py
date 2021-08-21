@@ -63,7 +63,7 @@ def getContestInfo(contest):
 
     newContest = {
         "title": unSlug(contest),
-        "href": 'contest.html?contest={}'.format(contest),
+        "href": 'contest?contest={}'.format(contest),
         "startTime": startTimestamp
     }
 
