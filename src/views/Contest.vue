@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
       <b-navbar-brand href="#">{{ unSlugTitle }}</b-navbar-brand>
       <b-navbar-nav>
-        <b-nav-item href="index.html">All Contests</b-nav-item>
+        <b-nav-item href="./">All Contests</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
 
@@ -69,7 +69,7 @@
 import axios from "axios";
 
 export default {
-  name: "App",
+  name: "Contest",
   components: {
   },
   data() {
