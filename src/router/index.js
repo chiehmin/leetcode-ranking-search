@@ -13,8 +13,9 @@ const routes = [
     component: Main
   },
   {
-    path: '/contest',
+    path: '/contest/:contestName',
     name: 'Contest',
+    props: true,
     component: Contest
   },
   {

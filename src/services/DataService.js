@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: './',
+  baseURL: '/leetcode-ranking-search/',
   withCredentials: false,
   headers: {
     'Accept': 'application/json',

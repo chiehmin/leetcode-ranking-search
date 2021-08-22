@@ -41,7 +41,7 @@
         Contest
       </template>
       <template v-slot:cell(title)="data">
-        <router-link :to="data.item.href">{{ data.item.title }}</router-link>
+        <router-link :to="{ name: 'Contest', params: { contestName: data.item.slug } }">{{ data.item.title }}</router-link>
       </template>
       <template v-slot:cell(startTime)="data">
         {{ timestampToDate(data.item.startTime) }}

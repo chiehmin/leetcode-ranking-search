@@ -69,6 +69,7 @@ export default {
   name: "Contest",
   components: {
   },
+  props: ['contestName'],
   data() {
     return {
       title: "",
@@ -116,17 +117,14 @@ export default {
         }.bind(this));
     },
     loadData: function () {
-      var contest = new URLSearchParams(new URL(document.URL).search).get("contest");
-      contest = contest ? contest : 'latest';
-
       // loading contest data
-      DataService.getContest(contest)
+      DataService.getContest(this.contestName)
         .then(function (resp) {
           this.isBusy = false;
           this.rank = resp.data;
         }.bind(this));
 
-      this.title = contest;
+      this.title = this.contestName;
     },
     filterFunc: function(row, ) {
       return this.filterUser(row) && this.filterCountry(row);
