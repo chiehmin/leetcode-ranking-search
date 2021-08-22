@@ -41,7 +41,8 @@
         Contest
       </template>
       <template v-slot:cell(title)="data">
-        <router-link :to="{ name: 'Contest', params: { contestName: data.item.slug } }">{{ data.item.title }}</router-link>
+        <router-link v-if="data.item.title === 'Global Ranking'" to="/global_ranking">{{ data.item.title }}</router-link>
+        <router-link v-else :to="{ name: 'Contest', params: { contestName: data.item.slug, title: data.item.title} }">{{ data.item.title }}</router-link>
       </template>
       <template v-slot:cell(startTime)="data">
         {{ timestampToDate(data.item.startTime) }}
@@ -118,7 +119,7 @@ export default {
   created: function() {
     this.contests = [{
       "title": "Global Ranking",
-      "href": "global_ranking",
+      "slug": "global_ranking",
       "startTime": 0,
     }];
     DataService.getAllContestInfo()

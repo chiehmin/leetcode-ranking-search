@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="px-5">
     <b-navbar toggleable="lg" type="dark" variant="info" class="mb-2">
-      <b-navbar-brand href="#">{{ unSlugTitle }}</b-navbar-brand>
+      <b-navbar-brand href="#">{{ title }}</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item to="/">All Contests</b-nav-item>
       </b-navbar-nav>
@@ -69,10 +69,9 @@ export default {
   name: "Contest",
   components: {
   },
-  props: ['contestName'],
+  props: ['title', 'contestName'],
   data() {
     return {
-      title: "",
       perPage: 25,
       currentPage: 1,
       fields: ['rank', 'username', 'country_name', 'score', 'finish_time', 'data_region'],
@@ -88,13 +87,6 @@ export default {
   computed: {
     total: function () {
       return this.totalRows || this.rank.length;
-    },
-    unSlugTitle: function () {
-      var words = this.title.split("-");
-      for (var i = 0; i < words.length; i++) {
-        words[i] = words[i].charAt(0).toUpperCase() + words[i].substr(1);
-      }
-      return words.join(" ");
     },
     filterTrigger: function() {
       return this.countryFilter + this.userFilter;
@@ -123,8 +115,6 @@ export default {
           this.isBusy = false;
           this.rank = resp.data;
         }.bind(this));
-
-      this.title = this.contestName;
     },
     filterFunc: function(row, ) {
       return this.filterUser(row) && this.filterCountry(row);
