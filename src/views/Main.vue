@@ -69,8 +69,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import moment from 'moment'
+
+import DataService from '@/services/DataService.js'
 
 export default {
   name: 'Main',
@@ -114,13 +115,13 @@ export default {
       return this.filterUser + "'s Contest History";
     }
   },
-  mounted: function() {
+  created: function() {
     this.contests = [{
       "title": "Global Ranking",
       "href": "global_ranking",
       "startTime": 0,
     }];
-    axios.get('data/contests.json')
+    DataService.getAllContestInfo()
       .then(function(resp) {
         this.contests = this.contests.concat(resp.data);
         this.isBusy = false;

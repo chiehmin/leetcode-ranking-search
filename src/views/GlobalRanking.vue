@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import DataService from '@/services/DataService.js'
 
 export default {
   name: "GlobalRanking",
@@ -87,13 +87,13 @@ export default {
       return this.countryFilter + this.userFilter;
     },
   },
-  mounted: function () {
+  created: function () {
     this.loadCountry();
   },
   methods: {
     rankProvider: function(ctx) {
       if (this.rank.length === 0) {
-        return axios.get('data/global-ranking.json')
+        return DataService.getContest('global-ranking')
                   .then(function (resp) {
                     this.rank = resp.data;
                     this.filteredRank = this.rank;
@@ -114,7 +114,7 @@ export default {
       }
     },
     loadCountry: function () {
-      axios.get('./country.json')
+      DataService.getCountry()
         .then(function (resp) {
           let tmpList = [];
           for (const [, value] of Object.entries(resp.data)) {

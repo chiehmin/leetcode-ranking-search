@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import DataService from '@/services/DataService.js'
 
 export default {
   name: "Contest",
@@ -99,13 +99,13 @@ export default {
       return this.countryFilter + this.userFilter;
     },
   },
-  mounted: function () {
+  created: function () {
     this.loadCountry();
     this.loadData();
   },
   methods: {
     loadCountry: function() {
-      axios.get('./country.json')
+      DataService.getCountry()
         .then(function (resp) {
           let tmpList = [];
           for (const [, value] of Object.entries(resp.data)) {
@@ -120,7 +120,7 @@ export default {
       contest = contest ? contest : 'latest';
 
       // loading contest data
-      axios.get('data/' + contest + '.json')
+      DataService.getContest(contest)
         .then(function (resp) {
           this.isBusy = false;
           this.rank = resp.data;
